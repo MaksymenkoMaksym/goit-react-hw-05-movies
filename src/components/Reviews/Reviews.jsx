@@ -19,6 +19,10 @@ const Reviews = () => {
 
   useEffect(() => {
     getReviews();
+    window.scrollBy({
+      top: window.innerHeight - 76,
+      behavior: 'smooth',
+    });
     // eslint-disable-next-line
   }, []);
 

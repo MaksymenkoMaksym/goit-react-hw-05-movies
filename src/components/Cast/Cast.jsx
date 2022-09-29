@@ -20,8 +20,12 @@ const Cast = () => {
 
   useEffect(() => {
     getCast();
+    window.scrollBy({
+      top: window.innerHeight - 76,
+      behavior: 'smooth',
+    });
     // eslint-disable-next-line
-  }, [id]);
+  }, []);
 
   if (cast?.length === 0) {
     return <p>We don`t have info about cast for this movies</p>;
