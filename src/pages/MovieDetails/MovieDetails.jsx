@@ -27,11 +27,11 @@ const MovieDetails = () => {
 
   const collectInfo = place => {
     if (!location.pathname.includes(place)) {
-      navigate(`/movies/${id}/${place}`, { replace: false });
+      navigate(`/movies/${id}/${place}`);
       return;
     }
     const address = location.pathname.replace(place, '');
-    navigate(`${address}`, { replace: false });
+    navigate(`${address}`);
     return;
   };
 

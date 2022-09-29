@@ -25,7 +25,7 @@ const Pagination = ({ totalCount, pageSize, currentPage, query, location }) => {
             : { pointerEvents: 'auto' }
         }
         // to={`/movies?query=${query}&page=${currentPage - 1}`}
-        to={{ ...location, search: '' }}
+        to={`/movies?query=${query}&page=${currentPage - 1}`}
         state={{ from: location }}
         end
       >
