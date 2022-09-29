@@ -16,13 +16,16 @@ const Cast = () => {
       alert(error);
     }
   };
+
   useEffect(() => {
     getCast();
     // eslint-disable-next-line
-  }, []);
+  }, [id]);
+
   if (!cast) {
     return;
   }
+
   return (
     <ul>
       {cast.map(({ name, profile_path, character }) => (

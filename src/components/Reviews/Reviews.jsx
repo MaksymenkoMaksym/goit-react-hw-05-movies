@@ -28,6 +28,7 @@ const Reviews = () => {
   if (reviews.length === 0) {
     return <p>We don`t have reviews for this movies</p>;
   }
+
   return (
     <ul>
       {reviews &&

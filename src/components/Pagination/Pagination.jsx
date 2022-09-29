@@ -1,4 +1,6 @@
 import { FaForward, FaBackward } from 'react-icons/fa';
+import PropTypes from 'prop-types';
+
 import { usePagination, DOTS } from 'hooks/usePagination';
 import { PaginationList, PaginatedItem, ActiveItem } from './pagination.styled';
 
@@ -19,12 +21,12 @@ const Pagination = ({ totalCount, pageSize, currentPage, query, location }) => {
     <PaginationList>
       {/* Left navigation arrow */}
       <PaginatedItem
+        key={'left'}
         style={
           currentPage === 1
             ? { pointerEvents: 'none' }
             : { pointerEvents: 'auto' }
         }
-        // to={`/movies?query=${query}&page=${currentPage - 1}`}
         to={`/movies?query=${query}&page=${currentPage - 1}`}
         state={{ from: location }}
         end
@@ -39,6 +41,7 @@ const Pagination = ({ totalCount, pageSize, currentPage, query, location }) => {
         if (pageNumber === currentPage) {
           return (
             <ActiveItem
+              key={pageNumber}
               to={`/movies?query=${query}&page=${pageNumber}`}
               state={{ from: location }}
             >
@@ -49,6 +52,7 @@ const Pagination = ({ totalCount, pageSize, currentPage, query, location }) => {
         // Render our Page Pills
         return (
           <PaginatedItem
+            key={pageNumber}
             to={`/movies?query=${query}&page=${pageNumber}`}
             state={{ from: location }}
           >
@@ -58,6 +62,7 @@ const Pagination = ({ totalCount, pageSize, currentPage, query, location }) => {
       })}
       {/*  Right Navigation arrow */}
       <PaginatedItem
+        key={'right'}
         style={
           currentPage === lastPage
             ? { pointerEvents: 'none' }
@@ -71,5 +76,11 @@ const Pagination = ({ totalCount, pageSize, currentPage, query, location }) => {
     </PaginationList>
   );
 };
-
+Pagination.propTypes = {
+  totalCount: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  query: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
+};
 export default Pagination;

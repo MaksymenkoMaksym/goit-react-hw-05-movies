@@ -14,7 +14,6 @@ const Movies = () => {
   const [page, setPage] = useState(null);
   const [query, setQuery] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
-  const backLink = location.state?.from ?? '/';
 
   const loadData = async () => {
     const page = searchParams.get('page');
@@ -44,7 +43,7 @@ const Movies = () => {
 
   return (
     <MainMovies>
-      <Link to={backLink} state={backLink.state || '/'}>
+      <Link to={-1}>
         {<AiOutlineRollback size={'60px'} color={'orange'} />}
       </Link>
       <Search startSearch={startSearch} />
