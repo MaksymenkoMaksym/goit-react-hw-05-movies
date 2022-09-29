@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import fallback from '../../assets/fallback.png';
 
 import getApiData from 'helpers/helpers';
+import Loader from 'components/Loader';
 
 const Cast = () => {
   const { id } = useParams();
@@ -22,11 +23,10 @@ const Cast = () => {
     // eslint-disable-next-line
   }, [id]);
 
-  if (!cast) {
-    return;
+  if (cast?.length === 0) {
+    return <p>We don`t have info about cast for this movies</p>;
   }
-
-  return (
+  return cast ? (
     <ul>
       {cast.map(({ name, profile_path, character }) => (
         <li key={name}>
@@ -49,6 +49,8 @@ const Cast = () => {
         </li>
       ))}
     </ul>
+  ) : (
+    <Loader />
   );
 };
 export default Cast;

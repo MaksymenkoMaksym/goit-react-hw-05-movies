@@ -26,6 +26,10 @@ const Movies = () => {
       setQuery(query);
       const response = await getApiData('search/movie', { query, page });
       setSearchData(response.data);
+      window.scrollBy({
+        top: window.innerHeight - 76,
+        behavior: 'smooth',
+      });
     } catch (error) {
       alert(error);
     }

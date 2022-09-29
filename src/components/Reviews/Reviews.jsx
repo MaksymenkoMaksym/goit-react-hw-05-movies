@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import getApiData from 'helpers/helpers';
+import Loader from 'components/Loader';
 
 const Reviews = () => {
   const { id } = useParams();
@@ -21,15 +22,11 @@ const Reviews = () => {
     // eslint-disable-next-line
   }, []);
 
-  if (!reviews) {
-    return;
-  }
-
-  if (reviews.length === 0) {
+  if (reviews?.length === 0) {
     return <p>We don`t have reviews for this movies</p>;
   }
 
-  return (
+  return reviews ? (
     <ul>
       {reviews &&
         reviews.map(({ content, author }) => (
@@ -41,6 +38,8 @@ const Reviews = () => {
           </li>
         ))}
     </ul>
+  ) : (
+    <Loader />
   );
 };
 

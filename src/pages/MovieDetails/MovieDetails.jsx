@@ -1,18 +1,12 @@
-import {
-  useParams,
-  Link,
-  Outlet,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
 import { AiOutlineRollback } from 'react-icons/ai';
 import getApiData from 'helpers/helpers';
 import { useEffect, useState } from 'react';
+import Loader from 'components/Loader';
 
 const MovieDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
-  const navigate = useNavigate();
 
   const location = useLocation();
   const backLink = location.state?.from ?? `/`;
@@ -27,12 +21,10 @@ const MovieDetails = () => {
 
   const collectInfo = place => {
     if (!location.pathname.includes(place)) {
-      navigate(`/movies/${id}/${place}`);
-      return;
+      return `/movies/${id}/${place}`;
     }
     const address = location.pathname.replace(place, '');
-    navigate(`${address}`);
-    return;
+    return address;
   };
 
   useEffect(() => {
@@ -40,11 +32,7 @@ const MovieDetails = () => {
     // eslint-disable-next-line
   }, [location]);
 
-  if (!movie) {
-    return;
-  }
-
-  return (
+  return movie ? (
     <div>
       <Link to={backLink}>
         {<AiOutlineRollback size={'60px'} color={'orange'} />}
@@ -66,36 +54,22 @@ const MovieDetails = () => {
       <div>
         <h4>Additional info</h4>
         <ul>
-          <li
-            style={{ cursor: 'pointer', color: 'blue' }}
-            onClick={() => collectInfo('cast')}
-          >
-            Cast
-            {/* <Link
-              to={`/movies/${id}/cast`}
-              // onClick={() => collectInfo('cast')}
-              state={{ from: `/movies/${id}` }}
-            >
+          <li style={{ cursor: 'pointer', color: 'blue' }}>
+            <Link to={collectInfo('cast')} state={{ from: `/movies/${id}` }}>
               Cast
-            </Link> */}
+            </Link>
           </li>
-          <li
-            style={{ cursor: 'pointer', color: 'blue' }}
-            onClick={() => collectInfo('reviews')}
-          >
-            Reviews
-            {/* <Link
-              to={`/movies/${id}/reviews`}
-              // onClick={() => collectInfo('reviews')}
-              state={{ from: `/movies/${id}` }}
-            >
+          <li style={{ cursor: 'pointer', color: 'blue' }}>
+            <Link to={collectInfo('reviews')} state={{ from: `/movies/${id}` }}>
               Reviews
-            </Link> */}
+            </Link>
           </li>
         </ul>
       </div>
       <Outlet />
     </div>
+  ) : (
+    <Loader />
   );
 };
 

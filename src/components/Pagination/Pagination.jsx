@@ -33,15 +33,15 @@ const Pagination = ({ totalCount, pageSize, currentPage, query, location }) => {
       >
         <FaBackward />
       </PaginatedItem>
-      {paginationRange.map(pageNumber => {
+      {paginationRange.map((pageNumber, index) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === DOTS) {
-          return <PaginatedItem>&#8230;</PaginatedItem>;
+          return <PaginatedItem key={DOTS + index}>&#8230;</PaginatedItem>;
         }
         if (pageNumber === currentPage) {
           return (
             <ActiveItem
-              key={pageNumber}
+              key={pageNumber + index}
               to={`/movies?query=${query}&page=${pageNumber}`}
               state={{ from: location }}
             >
@@ -52,7 +52,7 @@ const Pagination = ({ totalCount, pageSize, currentPage, query, location }) => {
         // Render our Page Pills
         return (
           <PaginatedItem
-            key={pageNumber}
+            key={pageNumber + index}
             to={`/movies?query=${query}&page=${pageNumber}`}
             state={{ from: location }}
           >

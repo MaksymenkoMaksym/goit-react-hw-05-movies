@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import MoviesList from 'components/MoviesList/MoviesList';
 import getApiData from 'helpers/helpers';
 import { MainHome, Title } from './Home.styled';
+import Loader from 'components/Loader';
 
 const Home = () => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(null);
 
   const getMovies = async () => {
     try {
@@ -22,7 +23,7 @@ const Home = () => {
   return (
     <MainHome>
       <Title>Trending Today</Title>
-      <MoviesList movies={movies} />
+      {movies ? <MoviesList movies={movies} /> : <Loader />}
     </MainHome>
   );
 };
