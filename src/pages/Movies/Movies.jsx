@@ -44,7 +44,7 @@ const Movies = () => {
 
   return (
     <MainMovies>
-      <Link to={backLink}>
+      <Link to={location.state?.from ?? '/'} state={location.state?.from}>
         {<AiOutlineRollback size={'60px'} color={'orange'} />}
       </Link>
       <Search startSearch={startSearch} />
